@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["mateusz_kmiecinski"]
   spec.email         = ["m.kmiecinski@pilot.co"]
   spec.summary       = %q{Trello automation.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.description   = %q{Trello automation tool.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_runtime_dependency "ruby-trello", "~> 1.1"
 end
