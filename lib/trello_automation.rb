@@ -1,5 +1,6 @@
-require "trello_automation/version"
+class TrelloAutomation
 
-module TrelloAutomation
-  # Your code goes here...
+  def start
+    puts 'hello'
+  end
 end
