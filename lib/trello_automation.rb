@@ -1,6 +1,9 @@
+require 'trello_automation/board_duplicator'
+
 class TrelloAutomation
 
   def start
-    puts 'hello'
+    bd = BoardDuplicator.new
+    bd.call
   end
 end
