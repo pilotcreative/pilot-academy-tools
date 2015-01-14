@@ -2,10 +2,9 @@ require 'trello_automation/authorization'
 
 class BoardDuplicator
 
-  def call
+  def call(url)
     Authorization.authorize
-
-    board = Trello::Board.find('Fqvqdqeo')
+    board = Trello::Board.find(board_token(url))
 
     duplicatedBoard = Trello::Board.create({name: "#{board.name}-mkm",
                                             organization_id: board.organization_id})
@@ -26,4 +25,10 @@ class BoardDuplicator
 
   end
 
+  private
+
+  def board_token(url)
+    /.*trello.com\/b\/(?<token>.*)\/.*/ =~ url
+    puts token
+  end
 end
