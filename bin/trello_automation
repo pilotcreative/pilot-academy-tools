@@ -1,4 +1,4 @@
 require 'trello_automation'
 
 trello_automation = TrelloAutomation.new
-trello_automation.start
+trello_automation.start ARGV
