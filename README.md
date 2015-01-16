@@ -1,31 +1,16 @@
-# TrelloAutomation
-
-TODO: Write a gem description
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'trello_automation'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install trello_automation
-
 ## Usage
 
-TODO: Write usage instructions here
+To clone board, run:
 
-## Contributing
+    ruby -Ilib bin/trello_automation "board_url"
 
-1. Fork it ( https://github.com/[my-github-username]/trello_automation/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+To clone board for every member on a list
+
+* create members list first, format:
+
+    John Doe <jdoe>
+    Lorem Ipsum <lipsum>
+
+* run:
+
+    ruby -Ilib bin/trello_automation "board_url" "path_to_members_list"
