@@ -10,7 +10,7 @@ ruby -Ilib bin/trello_automation "board_url"
 
 create members list first, format:
 
-John Doe <jdoe>
+John Doe <jdoe>\\
 Lorem Ipsum <lipsum>
 
 run:
