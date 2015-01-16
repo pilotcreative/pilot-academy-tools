@@ -1,19 +1,19 @@
 ** Usage
 
-To clone board, run:
+*** To clone board, run:
 
 #+BEGIN_SRC ruby
 ruby -Ilib bin/trello_automation "board_url"
 #+END_SRC
 
-To clone board for every member on a list
+*** To clone board for every member on a list
 
-*** create members list first, format:
+create members list first, format:
 
 John Doe <jdoe>
 Lorem Ipsum <lipsum>
 
-*** run:
+run:
 
 #+BEGIN_SRC ruby
 ruby -Ilib bin/trello_automation "board_url" "path_to_members_list"
