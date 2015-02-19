@@ -20,18 +20,11 @@ class BoardDuplicator
       end
     end
     add_member(duplicated_board.id, options[:member_name]) if options[:member_name]
-    subscribe_member(duplicated_todo_list.id, options[:member_name]) if options[:member_name]
+    subscribe_member(duplicated_todo_list.id) if options[:member_name]
+    p duplicated_todo_list
   end
 
   private
-
-  def get_boards_array(board_url, options = {})
-    board = Trello::Board.find(board_token(board_url))
-    board_subname = " - " + options[:full_member_name]
-    duplicated_board = Trello::Board.create(name: "#{board.name}#{board_subname}",
-                                            organization_id: board.organization_id)
-    [board, duplicated_board]
-  end
 
   def board_token(board_url)
     %r{.*trello.com/b/(?<token>.*)/.*} =~ board_url
@@ -49,5 +42,14 @@ class BoardDuplicator
     client = Trello.client
     path = "/lists/#{duplicated_todo_list_id}/subscribed"
     client.put(path, value: true)
+  end
+
+  def get_boards_array(board_url, options = {})
+    board = Trello::Board.find(board_token(board_url))
+    board_subname = " - "
+    board_subname += options[:full_member_name] || 'copy'
+    duplicated_board = Trello::Board.create(name: "#{board.name}#{board_subname}",
+                                            organization_id: board.organization_id)
+    [board, duplicated_board]
   end
 end
