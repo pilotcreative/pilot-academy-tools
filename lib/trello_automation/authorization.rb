@@ -14,7 +14,7 @@ class Authorization
   end
 
   def self.member_token
-    conf_file_path = File.expand_path('../../../conf/conf.yaml', __FILE__)
+    conf_file_path = File.expand_path('~/.trello_token', __FILE__)
     if File.exists?(conf_file_path)
       config = YAML.load_file(conf_file_path)
       member_token = config['member_token']
