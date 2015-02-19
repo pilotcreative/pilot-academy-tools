@@ -12,9 +12,16 @@ class BoardDuplicator
 
     duplicatedBoard.lists.each { |list| list.close! }
 
+    duplicated_todo_list = nil;
+
     board.lists.reverse.each do |list|
       duplicatedList = Trello::List.create({name: list.name,
                                             board_id: duplicatedBoard.id})
+
+      if /done/i =~ list.name
+        duplicated_todo_list = duplicatedList
+        puts duplicated_todo_list.name
+      end
 
       list.cards.reverse.each do |card|
         Trello::Card.create({name: card.name,
@@ -25,6 +32,7 @@ class BoardDuplicator
     end
 
     add_member(duplicatedBoard.id, options[:member_name]) if options[:member_name]
+    subscribe_member(duplicated_todo_list.id, options[:member_name]) if options[:member_name]
   end
 
   private
@@ -39,5 +47,12 @@ class BoardDuplicator
     member = Trello::Member.find(member_name)
     path = "/boards/#{board_id}/members/#{member.id}"
     client.put(path, type: 'normal')
+  end
+
+  def subscribe_member(duplicated_todo_list_id, member_name)
+    client = Trello.client
+    member = Trello::Member.find(member_name)
+    path = "/lists/#{duplicated_todo_list_id}/subscribed"
+    client.put(path, value: true)
   end
 end
