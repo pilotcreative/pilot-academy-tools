@@ -3,10 +3,7 @@ require 'trello_automation/authorization'
 class BoardDuplicator
   def call(board_url, options = {})
     Authorization.authorize
-    board = Trello::Board.find(board_token(board_url))
-    board_subname = " - " + options[:full_member_name]
-    duplicated_board = Trello::Board.create(name: "#{board.name}#{board_subname}",
-                                            organization_id: board.organization_id)
+    board, duplicated_board = get_boards_array(board_url, options)
     duplicated_board.lists.each { |list| list.close! }
     duplicated_todo_list = nil
     board.lists.reverse.each do |list|
@@ -28,8 +25,16 @@ class BoardDuplicator
 
   private
 
+  def get_boards_array(board_url, options = {})
+    board = Trello::Board.find(board_token(board_url))
+    board_subname = " - " + options[:full_member_name]
+    duplicated_board = Trello::Board.create(name: "#{board.name}#{board_subname}",
+                                            organization_id: board.organization_id)
+    [board, duplicated_board]
+  end
+
   def board_token(board_url)
-    %r(.*trello.com\/b\/(?<token>.*)\/.*) =~ board_url
+    %r{.*trello.com/b/(?<token>.*)/.*} =~ board_url
     token
   end
 
@@ -40,9 +45,8 @@ class BoardDuplicator
     client.put(path, type: 'normal')
   end
 
-  def subscribe_member(duplicated_todo_list_id, member_name)
+  def subscribe_member(duplicated_todo_list_id)
     client = Trello.client
-    member = Trello::Member.find(member_name)
     path = "/lists/#{duplicated_todo_list_id}/subscribed"
     client.put(path, value: true)
   end
