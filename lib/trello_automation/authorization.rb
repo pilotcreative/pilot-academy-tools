@@ -24,7 +24,7 @@ class Authorization
         puts "Something went wrong, please open #{url} manually and paste token below"
       end
       puts 'paste your token below:'
-      member_token = gets.chomp
+      member_token = STDIN.gets.chomp
       config = {}
       config['member_token'] = member_token
       File.open(conf_file_path, 'w') {|f| f.write config.to_yaml }
