@@ -2,7 +2,6 @@
 require 'trello_automation/board_duplicator'
 
 class TrelloAutomation
-
   def start(arg)
     bd = BoardDuplicator.new
     board_url = arg[0]
