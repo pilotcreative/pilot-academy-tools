@@ -3,28 +3,29 @@ require 'trello_automation/board_duplicator'
 
 class TrelloAutomation
   def start(arg)
-    bd = BoardDuplicator.new
-    board_url = arg[0]
-    members_list_path = arg[1]
-    if members_list_path
-      names(members_list_path).each do |full_member_name, member_name|
-        bd.call(board_url,
-                member_name: member_name,
-                full_member_name: full_member_name)
+    board_duplicator = BoardDuplicator.new
+    board_url, members_list_path = arg
+    if members_names = names(members_list_path)
+      members_names.each do |full_member_name, member_nickname|
+        board_duplicator.call(board_url,
+                              member_nickname: member_nickname,
+                              full_member_name: full_member_name)
       end
     else
-      bd.call(board_url)
+      board_duplicator.call(board_url)
     end
   end
 
   private
 
   def names(members_list_path)
+    return false if members_list_path.nil?
     names = []
     File.open(members_list_path, encoding: 'utf-8').each do |line|
-      /^(?<full_member_name>.*)<(?<member_name>.*)>$/ =~ line
-      names << [full_member_name, member_name]
+      /^(?<full_member_name>.*)<(?<member_nickname>.*)>$/ =~ line
+      names << [full_member_name, member_nickname]
     end
+    # p names #> [["John Doe ", "johnny"], ["Lorem Ipsum ", "cicero"]]
     names
   end
 end
