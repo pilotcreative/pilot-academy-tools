@@ -1,4 +1,5 @@
 require 'trello_automation/authorization'
+require 'json'
 
 class BoardDuplicator
   def call(board_url, options = {})
@@ -40,8 +41,12 @@ class BoardDuplicator
 
   def close_boards(client, array_with_tokens)
     array_with_tokens.each do |token|
-      client.put("/boards/#{token}", {closed: true})
-      puts "Closed board #{token}."
+      if client.get("/boards/#{token}").include?("closed\":true") == false
+        client.put("/boards/#{token}", {closed: true})
+        puts "Closed board #{token}."
+      else
+        puts "Board #{token} already closed."
+      end
     end
   end
 
@@ -67,13 +72,13 @@ class BoardDuplicator
     client = Trello.client
     path = "/lists/#{done_list_id}/subscribed"
     client.put(path, value: true)
-    # p client
-    # inspect
-    # client.put("/boards/xdJ6Icuq", {closed: true})
+    open_boards_tokens = []
     # %r{.*trello.com/b/(?<token>.*)/.*} =~ client.get("/members/me/boards").to_hash
-    my_board_tokens = client.get("/members/me/boards").scan(/(?<="shortLink":")(.{8})/).flatten
-    2.times { my_board_tokens.delete_at(0) }
-    close_boards(client, my_board_tokens)
+    JSON.parse(client.get('/members/me/boards', filter: 'open', fields: 'shortLink' )).each { |e| open_boards_tokens << e['shortLink'] }
+    # .scan(/(?<="name":")(.{8})/).flatten
+    # puts open_boards_tokens
+    2.times { open_boards_tokens.delete_at(0) }
+    close_boards(client, open_boards_tokens)
 
     # boards = Trello::Board.find("DSLZcAdN").attributes[:closed]
     # p boards
