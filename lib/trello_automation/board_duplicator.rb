@@ -33,8 +33,8 @@ class BoardDuplicator
     tokens_of_boards_to_close = []
     leave_out(filter).each { |e| tokens_of_boards_to_close << e['shortLink'] }
     tokens_of_boards_to_close.each do |token|
-      client.put("/boards/#{token}", {closed: true})
-      puts "Closed board #{token}."
+      name = JSON.parse(client.put("/boards/#{token}", {closed: true}))['name']
+      puts "Closed board #{name.strip} (shortLink: #{token})."
     end
   end
 
@@ -47,8 +47,8 @@ class BoardDuplicator
   def clone_board(original_board, clone_name)
     clone_name ||= 'copy'
     client.post('/boards',
-                           name: "#{original_board.name} - #{clone_name}",
-                           organization_id: original_board.organization_id)
+                name: "#{original_board.name} - #{clone_name}",
+                organization_id: original_board.organization_id)
   end
 
   def close_default_lists_in(board)
@@ -57,7 +57,7 @@ class BoardDuplicator
 
   def clone_lists_from_to(original_board, cloned_board_id)
     original_board.lists.each do |list|
-      client.post('/lists', name: list.name, idBoard: cloned_board_id)
+      client.post('/lists', name: list.name, idBoard: cloned_board_id, pos: 'bottom')
     end
   end
 
