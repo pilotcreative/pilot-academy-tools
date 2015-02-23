@@ -4,15 +4,19 @@ require 'trello_automation/board_duplicator'
 class TrelloAutomation
   def start(arg)
     board_duplicator = BoardDuplicator.new
-    board_url, members_list_path = arg
-    if members_names = names(members_list_path)
-      members_names.each do |full_member_name, member_nickname|
-        board_duplicator.call(board_url,
-                              member_nickname: member_nickname,
-                              full_member_name: full_member_name)
-      end
+    if arg[0] == 'close_all'
+      board_duplicator.close_boards
     else
-      board_duplicator.call(board_url)
+      board_url, members_list_path = arg
+      if members_names = names(members_list_path)
+        members_names.each do |full_member_name, member_nickname|
+          board_duplicator.call(board_url,
+                                member_nickname: member_nickname,
+                                full_member_name: full_member_name)
+        end
+      else
+        board_duplicator.call(board_url)
+      end
     end
   end
 
