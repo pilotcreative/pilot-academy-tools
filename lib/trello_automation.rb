@@ -4,8 +4,8 @@ require 'trello_automation/board_duplicator'
 class TrelloAutomation
   def start(arg)
     board_duplicator = BoardDuplicator.new
-    if arg[0] == 'close_all'
-      board_duplicator.close_boards
+    if arg[0] == 'close_all_but'
+      board_duplicator.close_boards(arg[1] ||= 'starred')
     else
       board_url, members_list_path = arg
       if members_names = names(members_list_path)

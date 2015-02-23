@@ -24,7 +24,7 @@ class BoardDuplicator
     add_member(board_users_copy.id, options[:member_nickname]) if options[:member_nickname]
   end
 
-  def close_boards(filter = 'starred')
+  def close_boards(filter = '')
     Authorization.authorize
     client
     boards_to_close_tokens = []
@@ -55,7 +55,6 @@ class BoardDuplicator
 
   def board_token(board_url)
     %r{.*trello.com/b/(?<token>.*)/.*} =~ board_url
-    # %r{.*trello.com/b/(?<token>.*)/.*} =~ 'https://trello.com/b/khsx7Ez1/tat'
     token
   end
 
@@ -93,3 +92,5 @@ end
 
 # .scan(/(?<="name":")(.{8})/).flatten
       # if client.get("/boards/#{token}").include?("closed\":true") == false
+
+    # %r{.*trello.com/b/(?<token>.*)/.*} =~ 'https://trello.com/b/khsx7Ez1/tat'
