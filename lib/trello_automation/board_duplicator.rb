@@ -8,10 +8,11 @@ class BoardDuplicator
     Authorization.authorize
     original_board = find_board(board_url)
     cloned_board = clone_board(original_board, options[:full_member_name])
-    cloned_board = find_board(JSON.parse(cloned_board)['url'])
-    close_default_lists_in(cloned_board)
-    clone_lists_from_to(original_board, cloned_board.id)
+    # cloned_board = find_board(JSON.parse(cloned_board)['url'])
+    # close_default_lists_in(cloned_board)
+    # clone_lists_from_to(original_board, cloned_board.id)
     # clone_cards_from_to(original_board, cloned_board)
+
     # board.lists.reverse.each do |list|
     #   @done_list = list if LISTS_TO_SUBSCRIBE_TO.each{ |e| e.downcase! }.include?(list.name.downcase!)
     #   list_copy = Trello::List.create(name: list.name, board_id: board_users_copy.id)
@@ -21,9 +22,6 @@ class BoardDuplicator
     #                         desc: card.desc)
     #   end
     # end
-    # p board_users_copy.lists.map(&:name).any? { |e| e =~ /done/i }
-    # p board_users_copy.lists.find()
-    # p board_users_copy.lists.pluck(:name).include?(/done/i)
     # subscribe_me_to_users_done_list(@done_list, board_users_copy.id, options[:full_member_name])
     # add_member(board_users_copy.id, options[:member_nickname]) if options[:member_nickname]
   end
@@ -46,9 +44,12 @@ class BoardDuplicator
 
   def clone_board(original_board, clone_name)
     clone_name ||= 'copy'
-    client.post('/boards',
-                name: "#{original_board.name} - #{clone_name}",
-                organization_id: original_board.organization_id)
+    name = "#{original_board.name} - #{clone_name}".strip
+    # cloned_board = client.post('/boards', name: name,
+    #                organization_id: original_board.organization_id)
+    # puts "Created a copy of #{original_board.name} with the name #{name}."
+    # cloned_board
+    client.post('/boards', name: name, idBoardSource: original_board.id)
   end
 
   def close_default_lists_in(board)
@@ -61,7 +62,36 @@ class BoardDuplicator
     end
   end
 
-  # def clonecards_from_to()
+  def clone_cards_from_to(original_board, cloned_board)
+    cloned_lists = []
+    cloned_board.lists.each do |list|
+      cloned_lists << list
+    end
+    original_board.lists.zip(cloned_lists).each do |list, cloned_list|
+      # puts "list: #{list}"
+      # puts "cloned_list: #{cloned_list}"
+      list.cards.each do |card|
+        # puts "card: #{card}"
+        # puts "cloned_list: #{cloned_list}"
+        original_card = JSON.parse(client.get("/cards/#{card.id}"))
+        # puts "original_card: #{original_card.class}"
+        # p original_card
+        # puts "card: #{card.class}"
+        # p card
+        # p original_card == card
+        # original_attachments = JSON.parse(client.get("/cards/#{card.id}/attachments"))
+        JSON.parse(client.post("/lists/#{cloned_list.id}/cards", original_card))
+        # puts original_attachments
+        # client.post("/lists/#{cloned_list.id}/cards")
+        # id = cloned_card['id']
+        # puts "id: #{id}"
+        # puts original_attachments['id']
+        # puts original_attachments['url']
+        # puts original_attachments['name']
+        # client.post("/cards/#{id}/attachments", url: original_attachments['url'], name: original_attachments['name'])
+      end
+    end
+  end
 
   def leave_out(filter)
     (all_boards('open') - all_boards(filter))
@@ -111,3 +141,7 @@ end
       # if client.get("/boards/#{token}").include?("closed\":true") == false
 
     # %r{.*trello.com/b/(?<token>.*)/.*} =~ 'https://trello.com/b/khsx7Ez1/tat'
+
+    # p board_users_copy.lists.map(&:name).any? { |e| e =~ /done/i }
+    # p board_users_copy.lists.find()
+    # p board_users_copy.lists.pluck(:name).include?(/done/i)
