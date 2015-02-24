@@ -1,3 +1,12 @@
+# Trello Automation
+
+The script deliveres the following features to the command line:
+
+1. Copying a board
+2. Cloning a board for specified users.
+3. Closing specified boards.
+4. Subscribing to specified lists.
+
 ## Usage
 
 To run the script simply run:
@@ -20,7 +29,7 @@ In this case, `member_list` is a file in the home directory of the project, i.e.
 The `member_list` file can be given any name and extension (including none as in this example), but it has to be kept strictly in the following form:
 
 ```
-Member Name <member_trello_nickname>
+Member Name <trello_nickname_or_email>
 John Doe <jdoe>
 Lorem Ipsum <lipsum>
 ```

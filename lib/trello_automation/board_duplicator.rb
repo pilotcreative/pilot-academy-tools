@@ -36,7 +36,7 @@ class BoardDuplicator
     cloned_board = client.post('/boards', name: name, idBoardSource: original_board.id)
     url = JSON.parse(cloned_board)['url']
     puts "Created a copy of #{original_board.name} with the name #{name}."
-    puts "Link to the cloned board: #{url}"
+    puts "Link to the clone board: #{url}"
     JSON.parse(cloned_board)['id']
   end
 
