@@ -4,22 +4,24 @@ require 'trello_automation/board_duplicator'
 class TrelloAutomation
   def start(arg)
     board_duplicator = BoardDuplicator.new
-    if arg[0].nil?
+    case arg[0]
+    when nil
       puts "You must specify at least one argument!"
       return
-    elsif arg[0] == 'authorize'
+    when 'authorize'
       Authorization.authorize
       puts "Authorization successful, you can use the script now."
-    elsif arg[0] == 'close_all_but'
+    when 'close_all_but'
       board_duplicator.close_boards(arg[1] ||= 'starred')
-    elsif arg.include?('subscribe')
-      puts "Yeah you're here in subscribe."
+    # elsif arg.include?('subscribe')
+      # puts "Yeah you're here in subscribe."
 
-    elsif arg[0] == 'copy'
+    when 'copy'
       puts "\nCreating board copy..."
       board_duplicator.call(arg[1])
-    elsif arg[0] == 'clone'
-      puts "Yeah you're here in clone."
+    when 'clone'
+      puts "You didn't specify members the clones should be made for. " \
+      "Perhaps you wanted to 'copy' rather than 'clone'?" if arg[2].nil?
       board_url = arg[1]
       members_list_path = arg[2]
       if members_names = names(members_list_path)
