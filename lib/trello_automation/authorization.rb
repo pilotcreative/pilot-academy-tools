@@ -1,6 +1,7 @@
 require 'trello'
 require 'launchy'
 require 'yaml'
+APP_NAME = 'Trello Automation'
 
 class Authorization
   DEVELOPER_PUBLIC_KEY = 'bf9a0ddb8c4cb08bf7c9223e12675705'
@@ -34,6 +35,7 @@ class Authorization
     'https://trello.com/1/authorize?' \
       "key=#{DEVELOPER_PUBLIC_KEY}&" \
       'response_type=token&' \
+      "name=#{APP_NAME}&" \
       "expiration=#{expiry}&" \
       'scope=read,write'
   end
