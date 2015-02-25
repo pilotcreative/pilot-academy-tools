@@ -12,8 +12,8 @@ Trello Automation is a script that deliveres the following features to the comma
 
 1. Clone this repo:
 `$ git clone https://github.com/pilotcreative/pilot-academy-tools/`
-2. Authorize:
-`$ git ./trello_automation.sh authorize`
+2. Navigate to the repo's folder and authorize:
+`$ ./trello_automation.sh authorize`
 
 A browser should open with Trello asking you for permission. Allow and copy-paste the token from the browser to the terminal when prompted. You should see something like this:
 
@@ -41,7 +41,7 @@ This list will be created if the original board does not have such.
 #####Example:
 
 ```
-$ ./trello_automation.sh https://trello.com/b/vlQMjo8k/trello-automation
+$ ./trello_automation.sh copy https://trello.com/b/vlQMjo8k/trello-automation
 Creating board copy...
 Created a copy of Trello Automation with the name Trello Automation - copy.
 Link to the cloned board: https://trello.com/b/0Kzw3lTC/trello-automation-copy
@@ -77,7 +77,7 @@ In the above code all chars are literal. See sample [members_list file](https://
 #####Example:
 
 ```
-$ ./trello_automation.sh https://trello.com/b/vlQMjo8k/trello-automation members_list
+$ ./trello_automation.sh clone https://trello.com/b/vlQMjo8k/trello-automation members_list
 
 Creating board copy for Trello user johnny...
 Created a copy of Trello Automation with the name Trello Automation - John Doe.
@@ -185,7 +185,7 @@ A handy use:
 $ ./trello_automation.sh show open url name > links.txt
 ```
 
-This provides you with the following file, which contains `name`, `id`, and `url` of each of all `open` boards:
+This provides you with the following `links.txt` file, which contains `name`, `id`, and `url` of each of all `open` boards:
 
 ```
 {"name"=>"Academy Chat Gnu", "id"=>"54b4e25053d2ee874f475688", "url"=>"https://trello.com/b/Hwjry1aD/academy-chat-gnu"}
