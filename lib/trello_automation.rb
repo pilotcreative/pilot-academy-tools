@@ -33,7 +33,9 @@ class TrelloAutomation
       end
     when 'close_all_but'
       board_duplicator = BoardDuplicator.new
-      board_duplicator.close_boards(arg[1] ||= 'starred')
+      filter = arg.slice(1..(arg.length-1))
+      filter.empty? ? filter = 'starred' : filter = filter.to_s[1..-2].delete('"').delete(' ')
+      board_duplicator.close_boards(filter)
     end
   end
 

@@ -12,11 +12,12 @@ class BoardDuplicator
     add_member(cloned_board_id, options[:trello_nickname]) if options[:trello_nickname]
   end
 
-  def close_boards(filter = '')
+  def close_boards(filter)
     Authorization.authorize
+    puts "Closing boards..."
     tokens_of_boards_to_close = []
     leave_out(filter).each { |e| tokens_of_boards_to_close << e['shortLink'] }
-    tokens_of_boards_to_close -= organizations_boards
+    # tokens_of_boards_to_close -= organizations_boards
     tokens_of_boards_to_close.each do |token|
       closed_board = JSON.parse(client.put("/boards/#{token}", closed: true))
       name = closed_board['name']
@@ -64,7 +65,10 @@ class BoardDuplicator
   end
 
   def leave_out(filter)
-    (all_boards('open') - all_boards(filter))
+    puts "Filtering out: #{filter} ..."
+    filtered_boards = (all_boards('open') - all_boards(filter))
+    puts "No boards to close after filtering!" if filtered_boards.empty?
+    filtered_boards
   end
 
   def all_boards(filter, fields = 'shortLink')
