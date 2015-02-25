@@ -24,6 +24,12 @@ class BoardDuplicator
     end
   end
 
+  def self.subscription_list(array_with_lists)
+    LISTS_TO_SUBSCRIBE_TO.delete_at(0)
+    array_with_lists.each { |l| LISTS_TO_SUBSCRIBE_TO << l }
+    puts LISTS_TO_SUBSCRIBE_TO
+  end
+
   private
 
   def find_board_by_url(board_url)
