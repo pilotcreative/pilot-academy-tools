@@ -12,7 +12,9 @@ Trello Automation is a script that deliveres the following features to the comma
 
 1. Clone this repo:
 `$ git clone https://github.com/pilotcreative/pilot-academy-tools/`
-2. Navigate to the repo's folder and authorize:
+2. Navigate to the repo's folder and run:
+`$ bundle install`
+3. Authorize:
 `$ ./trello_automation.sh authorize`
 
 A browser should open with Trello asking you for permission. Allow and copy-paste the token from the browser to the terminal when prompted. You should see something like this:
@@ -38,7 +40,7 @@ Gives you the link to the copy.
 Subscribes you automatically to the copy's _**Done**_ list.
 This list will be created if the original board does not have such.
 
-#####Example:
+####Example:
 
 ```
 $ ./trello_automation.sh copy https://trello.com/b/vlQMjo8k/trello-automation
@@ -74,7 +76,7 @@ Lorem Ipsum <cicero@ancient.rome>
 
 In the above code all chars are literal. See sample [members_list file](https://github.com/pilotcreative/pilot-academy-tools/blob/master/members_list) for more explicit example.
 
-#####Example:
+####Example:
 
 ```
 $ ./trello_automation.sh clone https://trello.com/b/vlQMjo8k/trello-automation members_list
@@ -98,7 +100,7 @@ In this case, `member_list` is a file in the home directory of the project, i.e.
 
 The flow with subscriptions is similar to the basic flow, except you will get subscribed to **all and only** the lists you specify. If some list does not exist, it will be created so you can be subscribed to it. The `subscribe` argument overrides the default behaviour, i.e. you will not get subscribed to any list, not even the _**Done**_ list, unless you specify it. You can give the `subscribe` argument alone if you do not want to get subscribed to the _**Done**_ list automatically when cloning boards for others.
 
-#####Example:
+####Example:
 
 ```
 $ ./trello_automation.sh clone https://trello.com/b/vlQMjo8k/trello-automation members_list subscribe HelpMeList CheckThisOut
@@ -137,7 +139,7 @@ The default filter is `starred`. Just as with using [`subscribe`](#flow-with-sub
 ERROR -- : [401 PUT https://api.trello.com/1/boards/#{shortLink}]: unauthorized permission requested
 ````
 
-Example:
+####Example:
 
 ```
 $ ./trello_automation.sh close_all_but
@@ -167,7 +169,7 @@ fields: closed dateLastActivity dateLastView desc descData idOrganization invita
 This command gives you the hash of `filter`ed out boards with specified `fields`, always including the `id` of a board.
 If no arguments are given, the default ones are `open` and `name` for `filter` and `fields` respectively.  
 
-Example:
+####Example:
 
 ```
 $ ./trello_automation.sh show
