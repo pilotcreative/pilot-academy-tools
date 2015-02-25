@@ -29,7 +29,7 @@ class BoardDuplicator
   def self.subscription_list(array_with_lists)
     LISTS_TO_SUBSCRIBE_TO.delete_at(0)
     array_with_lists.each { |l| LISTS_TO_SUBSCRIBE_TO << l }
-    puts LISTS_TO_SUBSCRIBE_TO
+    LISTS_TO_SUBSCRIBE_TO
   end
 
   def show(filter, fields)
@@ -96,7 +96,7 @@ class BoardDuplicator
         subscribe_member(cloned_lists[list.downcase])
         puts "You have been subscribed to the list #{list} in the board #{cloned_board.name}."
       else
-        new_list_id = JSON.parse(client.post("/boards/#{cloned_board_id}/lists", name: list, pos: 'bottom' ))['id']
+        new_list_id = JSON.parse(client.post("/boards/#{cloned_board_id}/lists", name: list, pos: 'bottom'))['id']
         subscribe_member(new_list_id)
         puts "You have been subscribed to the newly created list #{list} in the board #{cloned_board.name}."
       end
@@ -115,6 +115,6 @@ class BoardDuplicator
   end
 
   def client
-    client ||= Trello.client
+    Trello.client
   end
 end
