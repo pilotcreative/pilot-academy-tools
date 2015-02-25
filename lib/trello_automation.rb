@@ -3,7 +3,6 @@ require 'trello_automation/board_duplicator'
 
 class TrelloAutomation
   def start(arg)
-    board_duplicator = BoardDuplicator.new
     case arg[0]
     when nil
       puts "You must specify at least one argument!"
@@ -12,6 +11,7 @@ class TrelloAutomation
       puts "Authorization successful, you can use the script now."
     when 'copy'
       puts "\nCreating board copy..."
+      board_duplicator = BoardDuplicator.new
       board_duplicator.call(arg[1])
     when 'clone'
       if arg[2].nil?
@@ -21,6 +21,7 @@ class TrelloAutomation
       elsif arg[3] == 'subscribe'
         BoardDuplicator.subscription_list(arg.slice(4..(arg.length-1)))
       end
+      board_duplicator = BoardDuplicator.new
       board_url = arg[1]
       members_list_path = arg[2]
       if members_names = names(members_list_path)
@@ -31,6 +32,7 @@ class TrelloAutomation
         end
       end
     when 'close_all_but'
+      board_duplicator = BoardDuplicator.new
       board_duplicator.close_boards(arg[1] ||= 'starred')
     end
   end

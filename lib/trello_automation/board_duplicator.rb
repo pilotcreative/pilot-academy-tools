@@ -16,6 +16,7 @@ class BoardDuplicator
     Authorization.authorize
     tokens_of_boards_to_close = []
     leave_out(filter).each { |e| tokens_of_boards_to_close << e['shortLink'] }
+    tokens_of_boards_to_close -= organizations_boards
     tokens_of_boards_to_close.each do |token|
       closed_board = JSON.parse(client.put("/boards/#{token}", closed: true))
       name = closed_board['name']
@@ -31,6 +32,12 @@ class BoardDuplicator
   end
 
   private
+
+  def organizations_boards
+    organizations_boards_tokens = []
+    all_boards('open', 'idOrganization,shortLink').each { |e| organizations_boards_tokens << e['shortLink'] unless e['idOrganization'].nil? }
+    organizations_boards_tokens
+  end
 
   def find_board_by_url(board_url)
     Trello::Board.find(board_token(board_url))
@@ -60,8 +67,8 @@ class BoardDuplicator
     (all_boards('open') - all_boards(filter))
   end
 
-  def all_boards(filter)
-    JSON.parse(client.get('/members/me/boards', filter: filter, fields: 'shortLink' ))
+  def all_boards(filter, fields = 'shortLink')
+    JSON.parse(client.get('/members/me/boards', filter: filter, fields: fields))
   end
 
   def board_token(board_url)
