@@ -32,6 +32,11 @@ class BoardDuplicator
     puts LISTS_TO_SUBSCRIBE_TO
   end
 
+  def show(filter, fields)
+    Authorization.authorize
+    all_boards(filter, fields)
+  end
+
   private
 
   def organizations_boards

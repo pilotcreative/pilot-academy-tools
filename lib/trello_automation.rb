@@ -33,9 +33,13 @@ class TrelloAutomation
       end
     when 'close_all_but'
       board_duplicator = BoardDuplicator.new
-      filter = arg.slice(1..(arg.length-1))
-      filter.empty? ? filter = 'starred' : filter = filter.to_s[1..-2].delete('"').delete(' ')
+      arg[1].nil? ? filter = 'starred' : filter = argumentize(arg, 1)
       board_duplicator.close_boards(filter)
+    when 'show'
+      board_duplicator = BoardDuplicator.new
+      filter = arg[1] || 'open'
+      arg[2].nil? ? fields = 'name' : fields = argumentize(arg, 2)
+      puts board_duplicator.show(filter, fields)
     end
   end
 
@@ -50,5 +54,9 @@ class TrelloAutomation
     end
     # p names #> [["John Doe ", "johnny"], ["Lorem Ipsum ", "cicero"]]
     names
+  end
+
+  def argumentize(input, starting_point)
+    input.slice(starting_point..(input.length-1)).to_s[1..-2].delete('"').delete(' ')
   end
 end
