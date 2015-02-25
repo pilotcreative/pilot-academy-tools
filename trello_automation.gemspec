@@ -4,12 +4,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'trello_automation/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "trello_automation"
+  spec.name          = 'trello_automation'
   spec.version       = TrelloAutomation::VERSION
-  spec.authors       = ["mateusz_kmiecinski"]
-  spec.email         = ["m.kmiecinski@pilot.co"]
+  spec.authors       = ['mateusz_kmiecinski', 'maciej_kalisz']
+  spec.email         = ['m.kmiecinski@pilot.co', 'm.kalisz@pilot.co']
   spec.summary       = %q{Trello automation.}
-  spec.description   = %q{Trello automation tool.}
+  spec.description   = %q{Tool for automating routine Trello tasks.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
