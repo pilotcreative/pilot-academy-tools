@@ -54,7 +54,7 @@ module TrelloAutomation
     def show_boards(arg)
       board_duplicator = BoardDuplicator.new
       filter = arg[1] || 'open'
-      arg[2].nil? ? fields = 'name' : fields = argumentize(arg, 2)
+      fields = arg[2].nil? ? 'name' : argumentize(arg, 2)
       puts board_duplicator.show(filter, fields)
     end
 
