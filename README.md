@@ -1,12 +1,12 @@
 # Trello Automation
 
-Trello Automation is a script that deliveres the following features to the command line:
+Trello Automation gives you the ability to manage some humdrum Trello tasks quickly and effectively via the command line.
 
-1. [Copying a board](#copying-a-board)
-2. [Cloning a board for specified users](#cloning-a-board-for-specified-users)
-3. [Closing specified boards](#closing-specified-boards)
-4. [Showing boards](#showing-boards)
-5. [Development](#development)
+# Table of contents:
+
+1. [Setup](#setup)
+2. [Features](#features)
+3. [Development](#development)
 
 # Setup
 
@@ -27,7 +27,15 @@ Authorization successful, you can use the script now.
 
 Setup is required only once.
 
-# Use
+# Features
+
+Trello Automation is a script that deliveres the following features to the command line:
+
+1. [Copying a board](#copying-a-board)
+2. [Cloning a board for specified users](#cloning-a-board-for-specified-users)
+3. [Closing specified boards](#closing-specified-boards)
+4. [Showing boards](#showing-boards)
+
 
 ## Copying a board
 
@@ -58,7 +66,7 @@ You have been subscribed to the list Done in the board Trello Automation - copy.
 #### [Basic command with additional subscriptions](#flow-with-subscriptions):
 `$ ./trello_automation.sh clone <board_url> <path/to/members_list> subscribe <lists_to_subscribe_to>`
 
-### Basic flow:
+#### Basic flow:
 Clones a linked board for each user.
 Names the copy in form `#{original_board_name} - #{trello_username_or_email}`.
 Gives you the link to the clone board.
@@ -97,7 +105,7 @@ Trello member cicero has been added to the board Trello Automation - Lorem Ipsum
 
 In this case, `member_list` is a file in the home directory of the project, i.e. where the file `trello_automation.sh` sits (this path is relative).
 
-### Flow with subscriptions:
+#### Flow with subscriptions:
 
 The flow with subscriptions is similar to the basic flow, except you will get subscribed to **all and only** the lists you specify. If some list does not exist, it will be created so you can be subscribed to it. The `subscribe` argument overrides the default behaviour, i.e. you will not get subscribed to any list, not even the _**Done**_ list, unless you specify it. You can give the `subscribe` argument alone if you do not want to get subscribed to the _**Done**_ list automatically when cloning boards for others.
 
