@@ -166,7 +166,7 @@ will close all boards but for the `pinned` and `public` ones.
 
 Command:
 
-`$ ./trello_automation show [filter] [fields]`
+`$ ./trello_automation.sh show [filter] [fields]`
 
 Both the `filter` and `fields` are optional arguments.
 Valid [arguments](https://trello.com/docs/api/member/index.html#get-1-members-idmember-or-username-boards):
