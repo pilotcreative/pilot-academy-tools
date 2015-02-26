@@ -32,6 +32,7 @@ Setup is required only once.
 ## Copying a board
 
 Command:
+
 `$ ./trello_automation.sh copy <board_url>`
 
 Makes a single copy of a linked board.
@@ -55,7 +56,7 @@ You have been subscribed to the list Done in the board Trello Automation - copy.
 #### [Basic command](#basic-flow):
 `$ ./trello_automation.sh clone <board_url> <path/to/members_list>`
 #### [Basic command with additional subscriptions](#flow-with-subscriptions):
-`$ ./trello_automation.sh clone <board_url> <path/to/members_list> subscribe help_needed check_this_out`
+`$ ./trello_automation.sh clone <board_url> <path/to/members_list> subscribe <lists_to_subscribe_to>`
 
 ### Basic flow:
 Clones a linked board for each user.
@@ -120,7 +121,7 @@ You have been subscribed to the newly created list CheckThisOut in the board Tre
 Trello member cicero has been added to the board Trello Automation - Lorem Ipsum.
 ```
 
-Take note you will not get subscribed automatically to the _**Done**_ list if using the `subscribe` argument!  
+Take note you will not get subscribed automatically to the _**Done**_ list if using the `subscribe` argument!
 
 ##Closing boards:
 
@@ -128,12 +129,12 @@ Command:
 
 `$ ./trello_automation.sh close_all_but [filter]`
 
-The script will iterate over all open boards and leave out these filtered.  
+The script will iterate over all open boards and leave out these filtered.
 Valid [`filter`](https://trello.com/docs/api/member/index.html#get-1-members-idmember-or-username-boards) filters are:
 
 `members organization pinned public starred unpinned`
 
-The default filter is `starred`. Just as with using [`subscribe`](#flow-with-subscriptions), using filters overrides the default behaviour, i.e. the script will filter out **all and only** the boards you tell it to. If you try to close boards you do not have access to, you will get an error:  
+The default filter is `starred`. Just as with using [`subscribe`](#flow-with-subscriptions), using filters overrides the default behaviour, i.e. the script will filter out **all and only** the boards you tell it to. If you try to close boards you do not have access to, you will get an error:
 
 ```
 ERROR -- : [401 PUT https://api.trello.com/1/boards/#{shortLink}]: unauthorized permission requested
@@ -157,7 +158,7 @@ will close all boards but for the `pinned` and `public` ones.
 
 Command:
 
-`./trello_automation show [filter] [fields]`
+`$ ./trello_automation show [filter] [fields]`
 
 Both the `filter` and `fields` are optional arguments.
 Valid [arguments](https://trello.com/docs/api/member/index.html#get-1-members-idmember-or-username-boards):
@@ -167,7 +168,7 @@ fields: closed dateLastActivity dateLastView desc descData idOrganization invita
 ```
 
 This command gives you the hash of `filter`ed out boards with specified `fields`, always including the `id` of a board.
-If no arguments are given, the default ones are `open` and `name` for `filter` and `fields` respectively.  
+If no arguments are given, the default ones are `open` and `name` for `filter` and `fields` respectively.
 
 ####Example:
 
@@ -201,4 +202,4 @@ This provides you with the following `links.txt` file, which contains `name`, `i
 
 ##Development
 
-Please send any feedback to [mdkalish](https://github.com/mdkalish) or [laserchicken](https://github.com/laserchicken).  
+Please send any feedback to [mdkalish](https://github.com/mdkalish) or [laserchicken](https://github.com/laserchicken).
