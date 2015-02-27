@@ -46,16 +46,14 @@ module TrelloAutomation
     end
 
     def close_boards(argv)
-      board_duplicator = BoardDuplicator.new
-      argv[1].nil? ? filter = 'starred' : filter = argumentize(argv, 1)
-      board_duplicator.close_boards(filter)
+      filter = argv[1].nil? ? 'starred' : argumentize(argv, 1)
+      BoardDuplicator.new.close_boards(filter)
     end
 
     def show_boards(argv)
-      board_duplicator = BoardDuplicator.new
       filter = argv[1] || 'open'
       fields = argv[2].nil? ? 'name' : argumentize(argv, 2)
-      puts board_duplicator.show(filter, fields)
+      puts BoardDuplicator.new.show(filter, fields)
     end
 
     def names(members_list_path)
