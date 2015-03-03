@@ -5,7 +5,7 @@ module Constants
 
   NO_ARGS    = 'You must specify at least one argument!'
   AUTH_OK    = 'Authorization successful, you can use the script now.'
-  NO_MEMBERS = "You didn't specify members the clones should be made for." \
+  NO_MEMBERS = "You didn't specify members the clones should be made for. " \
                "Perhaps you wanted to 'copy' rather than 'clone'?"
   NO_BOARDS  = 'No boards to close after filtering!'
 end

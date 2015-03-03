@@ -27,9 +27,9 @@ module TrelloAutomation
     end
 
     def self.subscription_list(array_with_lists)
-      LISTS_TO_SUBSCRIBE_TO.delete_at(0)
-      array_with_lists.each { |l| LISTS_TO_SUBSCRIBE_TO << l }
-      LISTS_TO_SUBSCRIBE_TO
+      Constants::LISTS_TO_SUBSCRIBE_TO.delete_at(0)
+      array_with_lists.each { |l| Constants::LISTS_TO_SUBSCRIBE_TO << l }
+      Constants::LISTS_TO_SUBSCRIBE_TO
     end
 
     def show(filter, fields)

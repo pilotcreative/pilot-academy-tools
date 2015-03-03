@@ -7,7 +7,7 @@ module TrelloAutomation
     def self.authorize
       Configuration.configuration
       Trello.configure do |config|
-        config.developer_public_key = DEVELOPER_PUBLIC_KEY
+        config.developer_public_key = Constants::DEVELOPER_PUBLIC_KEY
         config.member_token = member_token
       end
     end
