@@ -6,11 +6,11 @@ require 'trello_automation/version'
 Gem::Specification.new do |spec|
   spec.name          = 'trello_automation'
   spec.version       = TrelloAutomation::VERSION
-  spec.authors       = ['mateusz_kmiecinski', 'maciej_kalisz']
+  spec.authors       = ['Mateusz Kmiecinski', 'Maciej Kalisz']
   spec.email         = ['m.kmiecinski@pilot.co', 'm.kalisz@pilot.co']
-  spec.summary       = 'Script for automating humdrum Trello tasks'
+  spec.summary       = 'Script for automating humdrum Trello tasks.'
   spec.homepage      = 'https://github.com/pilotcreative/pilot-academy-tools'
-  spec.license       = 'MIT'
+  spec.license       = ''
   spec.files         = %x{git ls-files -z}.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
