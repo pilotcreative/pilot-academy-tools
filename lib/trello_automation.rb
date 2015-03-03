@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 require 'trello_automation/board_duplicator'
+require 'trello_automation/configuration'
 
 module TrelloAutomation
   class AutomationManager
+    include Configuration
+
     def start(argv)
+      configuration
       case argv[0]
       when nil
-        puts 'You must specify at least one argument!'
+        logger.warn { Constants::NO_ARGS }
       when 'authorize'
         Authorization.authorize
-        puts 'Authorization successful, you can use the script now.'
+        logger.info { Constants::AUTH_OK }
       when 'copy'
         copy_board(argv)
       when 'clone'
@@ -18,21 +22,21 @@ module TrelloAutomation
         close_boards(argv)
       when 'show'
         show_boards(argv)
+      else
+        logger.warn { "Wrong arguments: #{argv}" }
       end
     end
 
     private
 
     def copy_board(argv)
-      puts "\nCreating board copy..."
-      board_duplicator = BoardDuplicator.new
-      board_duplicator.call(argv[1])
+      logger.info { 'Creating board copy...' }
+      BoardDuplicator.new.call(argv[1])
     end
 
     def clone_board(argv)
       if argv[2].nil?
-        puts "You didn't specify members the clones should be made for. " \
-        "Perhaps you wanted to 'copy' rather than 'clone'?"
+        logger.warn { Constants::NO_MEMBERS }
         return
       end
       BoardDuplicator.subscription_list(argv.slice(4..(argv.length - 1))) if argv[3] == 'subscribe'

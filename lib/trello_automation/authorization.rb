@@ -3,12 +3,9 @@ require 'launchy'
 require 'yaml'
 
 module TrelloAutomation
-  APP_NAME = 'Trello Automation'
-
   class Authorization
-    DEVELOPER_PUBLIC_KEY = 'bf9a0ddb8c4cb08bf7c9223e12675705'
-
     def self.authorize
+      Configuration.configuration
       Trello.configure do |config|
         config.developer_public_key = DEVELOPER_PUBLIC_KEY
         config.member_token = member_token
@@ -35,19 +32,20 @@ module TrelloAutomation
 
     def self.member_token_url(expiry = '') # [ never | 30days (default) ]
       'https://trello.com/1/authorize?' \
-        "key=#{DEVELOPER_PUBLIC_KEY}&" \
+        "key=#{Constants::DEVELOPER_PUBLIC_KEY}&" \
         'response_type=token&' \
-        "name=#{APP_NAME}&" \
+        "name=#{Constants::APP_NAME}&" \
         "expiration=#{expiry}&" \
         'scope=read,write'
     end
 
     def self.exception_message(url, exception)
-      puts "Launchy exception thrown:\n#{exception}\nPlease open #{url} manually and paste the token below:"
+      Configuration.logger.error { "Launchy exception thrown: #{exception}" }
+      Configuration.logger.error { "Please open #{url} and paste the token below:" }
     end
 
     def self.read_token_from_stdin
-      puts 'Please paste your token:'
+      Configuration.logger.info { "Please paste your token: "  }
       STDIN.gets.chomp
     end
   end
