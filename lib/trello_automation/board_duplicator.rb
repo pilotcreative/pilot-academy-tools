@@ -20,9 +20,8 @@ module TrelloAutomation
       # tokens_of_boards_to_close -= organizations_boards
       tokens_of_boards_to_close.each do |token|
         closed_board = JSON.parse(client.put("/boards/#{token}", closed: true))
-        name = closed_board['name']
-        url = closed_board['url']
-        puts "Closed board #{name}, URL: #{url}."
+        logger.info { "Closed name: #{closed_board['name']}" }
+        logger.info { "Closed URL:  #{closed_board['url']}" }
       end
     end
 

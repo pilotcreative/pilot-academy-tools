@@ -40,11 +40,11 @@ module TrelloAutomation
         return
       end
       BoardDuplicator.subscription_list(argv.slice(4..(argv.length - 1))) if argv[3] == 'subscribe'
-      board_duplicator, board_url, members_list_path = BoardDuplicator.new, argv[1], argv[2]
+      board_url, members_list_path = argv[1], argv[2]
       if members_names = names(members_list_path)
         members_names.each do |full_member_name, trello_nickname|
-          board_duplicator.call(board_url, trello_nickname: trello_nickname,
-                                           full_member_name: full_member_name)
+          BoardDuplicator.new.call(board_url, trello_nickname: trello_nickname,
+                                              full_member_name: full_member_name)
         end
       end
     end

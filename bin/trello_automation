@@ -1,4 +1,3 @@
 require 'trello_automation'
 
-trello_automation = TrelloAutomation::AutomationManager.new
-trello_automation.start ARGV
+TrelloAutomation::AutomationManager.new.start ARGV

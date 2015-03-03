@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = TrelloAutomation::VERSION
   spec.authors       = ['mateusz_kmiecinski', 'maciej_kalisz']
   spec.email         = ['m.kmiecinski@pilot.co', 'm.kalisz@pilot.co']
-  spec.summary       = %q{Trello automation.}
-  spec.description   = %q{Tool for automating routine Trello tasks.}
+  spec.summary       = 'Script for automating humdrum Trello tasks'
   spec.homepage      = 'https://github.com/pilotcreative/pilot-academy-tools'
   spec.license       = 'MIT'
   spec.files         = %x{git ls-files -z}.split("\x0")
