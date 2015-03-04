@@ -16,10 +16,10 @@ module TrelloAutomation
       configuration
       case argv[0]
       when nil
-        logger.warn { Constants::NO_ARGS }
+        logger.warn(Constants::NO_ARGS)
       when 'authorize'
         Authorization.authorize
-        logger.info { Constants::AUTH_OK }
+        logger.info(Constants::AUTH_OK)
       when 'copy'
         copy_board(argv)
       when 'clone'
@@ -29,20 +29,20 @@ module TrelloAutomation
       when 'show'
         show_boards(argv)
       else
-        logger.warn { "Wrong arguments: #{argv}" }
+        logger.warn("Wrong arguments: #{argv}")
       end
     end
 
     private
 
     def copy_board(argv)
-      logger.info { 'Creating board copy...' }
+      logger.info('Creating board copy...')
       BoardDuplicator.new.call(argv[1])
     end
 
     def clone_board(argv)
       if argv[2].nil?
-        logger.warn { Constants::NO_MEMBERS }
+        logger.warn(Constants::NO_MEMBERS)
         return
       end
       BoardDuplicator.subscription_list(argv.slice(4..(argv.length - 1))) if argv[3] == 'subscribe'

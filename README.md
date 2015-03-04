@@ -17,7 +17,7 @@ Trello Automation gives you the ability to manage some humdrum Trello tasks quic
 3. Authorize:
 `$ ./trello_automation.sh authorize`
 
-A browser should open with Trello asking you for permission. Allow and copy-paste the token from the browser to the terminal when prompted. You should see something like this:
+A browser should open with Trello asking for permission. Allow and copy-paste the token from the browser to the terminal when prompted. You should see something like this:
 
 ```
 Please paste your token:
