@@ -1,6 +1,3 @@
-require 'trello_automation/authorization'
-require 'json'
-
 module TrelloAutomation
   class BoardDuplicator
     def call(board_url, options = {})

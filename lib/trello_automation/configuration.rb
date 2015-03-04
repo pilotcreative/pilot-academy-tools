@@ -1,8 +1,4 @@
-require_relative 'constants'
-
 module Configuration
-  include Constants
-
   class << self
     attr_reader :logger
   end
@@ -24,7 +20,7 @@ module Configuration
 
   def self.configure_logger
     @logger = Logger.new($stdout)
-    @logger.progname = APP_NAME
+    @logger.progname = Constants::APP_NAME
     @logger.formatter = proc do |severity, _datetime, progname, msg|
       "#{progname} #{severity}: #{msg}\n"
     end

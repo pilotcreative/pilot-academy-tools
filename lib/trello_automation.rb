@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 require 'trello_automation/board_duplicator'
 require 'trello_automation/configuration'
+require 'trello_automation/authorization'
+require 'trello_automation/constants'
+require 'launchy'
+require 'trello'
+require 'json'
+require 'yaml'
 
 module TrelloAutomation
   class AutomationManager

@@ -1,7 +1,3 @@
-require 'trello'
-require 'launchy'
-require 'yaml'
-
 module TrelloAutomation
   class Authorization
     def self.authorize
