@@ -37,7 +37,9 @@ module TrelloAutomation
 
     def organizations_boards
       organizations_boards_tokens = []
-      all_boards('open', 'idOrganization,shortLink').each { |e| organizations_boards_tokens << e['shortLink'] unless e['idOrganization'].nil? }
+      all_boards('open', 'idOrganization,shortLink')
+        .each { |e| organizations_boards_tokens <<
+          e['shortLink'] unless e['idOrganization'].nil? }
       organizations_boards_tokens
     end
 
