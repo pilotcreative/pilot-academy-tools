@@ -34,16 +34,14 @@ module TrelloAutomation
     end
 
     def self.exception_message(url, exception)
-      Configuration.logger.error { "Launchy exception thrown: #{exception}" }
-      Configuration.logger.error { "Please open #{url} and paste the token below:" }
+      Configuration.logger.error("Launchy exception thrown: #{exception}")
+      Configuration.logger.error("Please open #{url} and paste the token below:")
     end
 
     def self.read_token_from_stdin
-      Configuration.logger.info { "Please paste your token: "  }
+      Configuration.logger.info('Please paste your token: ')
       STDIN.gets.chomp
     end
-
-    private
 
     def self.token_file_path
       File.expand_path('~/.trello_token')
