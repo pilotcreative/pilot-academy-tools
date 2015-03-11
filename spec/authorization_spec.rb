@@ -1,23 +1,23 @@
 describe TrelloAutomation::Authorization do
-  TEST_FILE = '/tmp/trello_spec'
-  MEMBER_TOKEN = 'member_token'
+  let(:test_file) { '/tmp/trello_spec' }
+  let(:member_token) { 'member_token' }
   Authorization = TrelloAutomation::Authorization
 
   before do
     stub_const('Constants::DEVELOPER_PUBLIC_KEY', 'dpk')
     stub_const('Constants::APP_NAME', 'Test App Name')
-    Authorization.stub(:token_file_path) { TEST_FILE }
+    allow(Authorization).to receive(:token_file_path) { test_file }
   end
 
   context 'when there is token file in system' do
     before do
       Trello.configuration.member_token = nil
       Trello.configuration.developer_public_key = nil
-      File.open(TEST_FILE, 'w') { |f| f.write "member_token: #{MEMBER_TOKEN}" }
+      File.open(test_file, 'w') { |f| f.write "member_token: #{member_token}" }
     end
 
     after do
-      expect(File.delete(TEST_FILE)).to eq(1)
+      expect(File.delete(test_file)).to eq(1)
     end
 
     it 'sets member token' do
@@ -34,7 +34,7 @@ describe TrelloAutomation::Authorization do
 
     it 'reads member token correctly' do
       Authorization.authorize
-      expect(Trello.configuration.member_token).to eq(MEMBER_TOKEN)
+      expect(Trello.configuration.member_token).to eq(member_token)
     end
 
     it 'reads developer public key correctly' do
@@ -45,9 +45,9 @@ describe TrelloAutomation::Authorization do
 
   context 'when there is no token file in system' do
     before do
-      allow(Authorization).to receive(:read_token_from_stdin).and_return(MEMBER_TOKEN)
-      File.delete(TEST_FILE) if File.exist?(TEST_FILE)
-      expect(File.exist?(TEST_FILE)).to be_falsey
+      allow(Authorization).to receive(:read_token_from_stdin).and_return(member_token)
+      File.delete(test_file) if File.exist?(test_file)
+      expect(File.exist?(test_file)).to be_falsey
     end
 
     it 'opens browser to deliver the key' do
@@ -57,7 +57,7 @@ describe TrelloAutomation::Authorization do
 
     describe 'stores the key from STDIN to file' do
       before do
-        Authorization.stub(:open_url_in_browser)
+        allow(Authorization).to receive(:open_url_in_browser)
       end
 
       it 'prompts user for the key' do
@@ -66,15 +66,15 @@ describe TrelloAutomation::Authorization do
       end
 
       it 'creates token file in system' do
-        expect(File.exist?(TEST_FILE)).to be_falsey
+        expect(File.exist?(test_file)).to be_falsey
         Authorization.authorize
-        expect(File.exist?(TEST_FILE)).to be_truthy
+        expect(File.exist?(test_file)).to be_truthy
       end
 
       it 'saves the key to the token file in system' do
-        expect(File.exist?(TEST_FILE)).to be_falsey
+        expect(File.exist?(test_file)).to be_falsey
         Authorization.authorize
-        expect(File.open(TEST_FILE, 'r') { |f| f.read }).to include(MEMBER_TOKEN)
+        expect(File.open(test_file, 'r') { |f| f.read }).to include(member_token)
       end
     end
 

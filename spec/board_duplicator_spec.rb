@@ -1,4 +1,6 @@
 describe TrelloAutomation::BoardDuplicator do
-  xit 'is here?' do
+  context 'when :trello_nickanme is given' do
+  end
+  context 'when :trello_nickanme is not given' do
   end
 end
