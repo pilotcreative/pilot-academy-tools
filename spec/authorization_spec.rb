@@ -1,7 +1,4 @@
-require 'trello_automation'
 describe TrelloAutomation::AutomationManager do
-  include Helpers
-
   TEST_FILE = '/tmp/trello_spec'
   MEMBER_TOKEN = 'member_token'
   Authorization = TrelloAutomation::Authorization
