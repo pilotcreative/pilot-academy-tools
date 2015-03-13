@@ -49,8 +49,9 @@ module TrelloAutomation
 
     def clone_board(original_board, clone_name)
       clone_name ||= 'copy'
+      idOrganization = original_board.organization_id
       name = "#{original_board.name} - #{clone_name}".strip
-      cloned_board = client.post('/boards', name: name, idBoardSource: original_board.id)
+      cloned_board = client.post('/boards', name: name, idBoardSource: original_board.id, idOrganization: idOrganization)
       logger.info("Cloned board: #{name}.")
       logger.info("URL: #{JSON.parse(cloned_board)['url']}")
       JSON.parse(cloned_board)['id']
