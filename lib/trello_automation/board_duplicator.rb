@@ -51,10 +51,15 @@ module TrelloAutomation
       clone_name ||= 'copy'
       idOrganization = original_board.organization_id
       name = "#{original_board.name} - #{clone_name}".strip
-      cloned_board = client.post('/boards', name: name, idBoardSource: original_board.id, idOrganization: idOrganization)
+      cloned_board = JSON.parse(client.post('/boards', name: name, idBoardSource: original_board.id, idOrganization: idOrganization))
+      set_permission_level(cloned_board['id'])
       logger.info("Cloned board: #{name}.")
-      logger.info("URL: #{JSON.parse(cloned_board)['url']}")
-      JSON.parse(cloned_board)['id']
+      logger.info("URL: #{cloned_board['url']}")
+      cloned_board['id']
+    end
+    
+    def set_permission_level(board_id, perm_level = 'org')
+      client.put("/boards/#{board_id}/prefs/permissionLevel", value: perm_level) 
     end
 
     def close_default_lists_in(board)
